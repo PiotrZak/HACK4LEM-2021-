@@ -3,7 +3,8 @@ import pytest
 import os
 
 _DEVICE_ID = os.environ.get('REVOLUT_DEVICE_ID')
-_TOKEN = os.environ.get('REVOLUT_TOKEN')
+#_TOKEN = os.environ.get('REVOLUT_TOKEN')
+_TOKEN = "sk_i0rL5l6ZjvyuiFclBUMULeOleotfEmrLEn4kgLGNuUUQ0puQNUuT1A9wmKo0jfV6"
 
 revolut = Revolut(token=_TOKEN, device_id=_DEVICE_ID)
 

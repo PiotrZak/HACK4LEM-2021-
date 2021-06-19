@@ -3,10 +3,12 @@ from app_dir.revolut_integration.auth import Client
 
 
 API_BASE = "https://api.revolut.com"
+
 _URL_GET_ACCOUNTS = API_BASE + "/user/current/wallet"
 _URL_GET_TRANSACTIONS_LAST = API_BASE + "/user/current/transactions/last"
 _URL_QUOTE = API_BASE + "/quote/"
 _URL_EXCHANGE = API_BASE + "/exchange"
+
 _URL_GET_TOKEN_STEP1 = API_BASE + "/signin"
 _URL_GET_TOKEN_STEP2 = API_BASE + "/signin/confirm"
 

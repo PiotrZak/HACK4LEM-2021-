@@ -13,7 +13,7 @@ class CreateOrderRevolut(TestCase):
         self.client = APIClient()
 
         self.namespace = 'revolut_integration_api'
-        self body = {
+        self.body = {
             'amount': faker.amount(),
             'capture_mode': faker.capture_mode(),
             'merchant_order_ext_ref': faker.merchant_order_ext_ref(),
