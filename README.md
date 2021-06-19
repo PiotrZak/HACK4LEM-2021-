@@ -5,8 +5,33 @@ Miro:
 
 https://miro.com/app/board/o9J_l-FEkGQ=/
 
+____
+Architecture:
+
 
 ____
+Tech Presentation
+
+https://onedrive.live.com/view.aspx?resid=33DF4C7E7B3968E6!393920&ithint=file%2cpptx&authkey=!APItiviNbUuBgjU
+Author: tkopacz
+____
+
+Revolut Integration
+
+ - integration django backend with simple transaction processing include
+   - auth (based on token)
+    - bussiness logic (transactions, transfers, amounts, currencies)
+
+based on: https://github.com/tducret/revolut-python/tree/4c58972eb5bcfc16b9ffbdeca8e4c4ce895e84da/revolut_bot
+___
+
+CyberSecurity:
+
+OpenId:
+
+https://stackoverflow.com/questions/2123369/whats-the-best-solution-for-openid-with-django
+
+___
 
 MailHog Instance:
 
@@ -20,7 +45,7 @@ accounts:
 
 
 ____
-Server:
+BackendServer:
 
 su:
 
