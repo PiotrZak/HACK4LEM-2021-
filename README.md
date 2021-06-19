@@ -67,5 +67,5 @@ ____
 
 AI/ML Models:
 
-[The Jupyter Notebook](ml/hack4lem.ipynb)
-[ML model in file .h5](ml/saved_model/hack4lem.h5)
+- [The Jupyter Notebook](./ml/hack4lem.ipynb)
+- [ML model in file .h5](./ml/saved_model/hack4lem.h5)
