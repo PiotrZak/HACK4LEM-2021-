@@ -1,4 +1,6 @@
-# lem-golem
+# HACK4LEM
+
+### GOLEM IV - Invisible Banking
 
 
 Miro:
@@ -45,6 +47,7 @@ accounts:
 
 
 ____
+
 BackendServer:
 
 su:
@@ -59,3 +62,10 @@ u: astrogator
 p: Hack4Lem2021
 
 connect: ssh astrogator@20.56.153.238
+
+____
+
+AI/ML Models:
+
+- [The Jupyter Notebook](./ML/Hack4Lem.ipynb)
+- [ML model in file .h5](./ML/saved_model/hack4lem.h5)
