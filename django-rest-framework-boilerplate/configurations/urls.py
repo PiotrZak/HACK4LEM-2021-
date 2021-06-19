@@ -11,8 +11,8 @@ urlpatterns = [
     path('api/user/', include(('app_dir.user.api.urls', 'user_api'), namespace='user_api')),
     path('api/module/', include(('app_dir.module.api.urls', 'module_api'), namespace='module_api')),
 
-    path('api/ai/', include(('ai_integration.module.api.urls', 'mail_api'), namespace='module_api')),
-    path('api/revolut/', include(('revolut_integration.module.api.urls', 'revolut_api'), namespace='revolut_api')),
+
+    path('api/revolut/', include(('app_dir.revolut_integration.module.api.urls', 'revolut_api'), namespace='revolut_api')),
 
 ]
 

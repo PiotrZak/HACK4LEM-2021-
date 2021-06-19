@@ -4,12 +4,12 @@ from rest_framework.generics import (
 )
 from rest_framework.permissions import (IsAuthenticatedOrReadOnly, IsAuthenticated)
 from .serializers import RevolutSerializer
-from ...core.pagination import PostLimitOffsetPagination
 
-from ....models import RevolutAccount, CreateOrder, RevolutAccountBalance, RevolutTransaction
+from app_dir.core.pagination import PostLimitOffsetPagination
+from app_dir.revolut_integration.models import RevolutAccount, CreateOrder, RevolutAccountBalance, RevolutTransaction
 
 permission_classes = [IsAuthenticatedOrReadOnly]
-serializer_class = UserSerializer
+serializer_class = RevolutSerializer
 pagination_class = PostLimitOffsetPagination
 
 
@@ -19,21 +19,16 @@ class RevolutListAPIView(ListAPIView):
     pagination_class = PostLimitOffsetPagination
 
     def get_queryset(self, *args, **kwargs):
-        queryset_list = User.objects.all()
+        queryset_list = RevolutAccount.objects.all()
 
         page_size = 'page_size'
         if self.request.GET.get(page_size):
             pagination.PageNumberPagination.page_size = self.request.GET.get(page_size)
         else:
             pagination.PageNumberPagination.page_size = 10
-        query = self.request.GET.get('q')
-        if query:
-            queryset_list = queryset_list.filter(
-                Q(email__icontains=query) |
-                Q(username__icontains=query)
-            )
 
         return queryset_list.order_by('-id')
+
 
 class RevolutAccounts(ListAPIView):
     serializer_class = RevolutSerializer
@@ -62,5 +57,3 @@ class RevolutCreateOrder(CreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = CreateOrder.objects.all()
     serializer_class = RevolutSerializer
-
-

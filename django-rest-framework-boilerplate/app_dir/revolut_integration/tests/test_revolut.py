@@ -1,9 +1,11 @@
-from .. import Amount, Revolut
+from app_dir.revolut_integration import Amount, Revolut
 import pytest
 import os
 
-revolut = Revolut(token=_TOKEN, device_id=_DEVICE_ID)
+_DEVICE_ID = os.environ.get('REVOLUT_DEVICE_ID')
+_TOKEN = os.environ.get('REVOLUT_TOKEN')
 
+revolut = Revolut(token=_TOKEN, device_id=_DEVICE_ID)
 
 def test_class_Amount():
     amount = Amount(revolut_amount=100, currency="EUR")

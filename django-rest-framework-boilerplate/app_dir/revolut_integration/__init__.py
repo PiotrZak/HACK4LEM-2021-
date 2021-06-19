@@ -1,4 +1,6 @@
 from datetime import datetime
+from app_dir.revolut_integration.auth import Client
+
 
 API_BASE = "https://api.revolut.com"
 _URL_GET_ACCOUNTS = API_BASE + "/user/current/wallet"

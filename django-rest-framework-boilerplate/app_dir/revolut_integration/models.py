@@ -7,12 +7,13 @@ class RevolutTransaction(models.Model):
     amount = models.IntegerField(max_length=30)
 
 
-class RevolutAccountBalance:
-    AMOUNT = models.IntegerField(max_length=30)
+class RevolutAccountBalance(models.Model):
+    amount = models.IntegerField(max_length=30)
+    currency = models.CharField(max_length=30)
 
 
 class RevolutAccount(models.Model):
-    id = models.IntegerField(max_length=30)
+    id = models.IntegerField(max_length=30, primary_key=True)
     name = models.CharField(max_length=30)
     balance = models.IntegerField(max_length=30)
     currency = models.CharField(max_length=30)
