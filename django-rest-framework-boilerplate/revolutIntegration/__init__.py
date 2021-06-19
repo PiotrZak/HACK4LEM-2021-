@@ -1,7 +1,5 @@
-import base64
+
 from datetime import datetime
-import json
-import requests
 
 from urllib.parse import urljoin
 
@@ -21,31 +19,48 @@ _AVAILABLE_CURRENCIES = ["USD", "RON", "HUF", "CZK", "GBP", "CAD", "THB",
                          "BGN", "XAU", "IDR", "INR", "MYR", "PHP", "XLM",
                          "EOS", "OMG", "XTZ", "ZRX"]
 
-class Account
+_CRYPTO = ["BTC", "ETH", "BCH", "XRP", "LTC"]
+
+# The amounts are stored as integer on Revolut.
+# They apply a scale factor depending on the currency
+_DEFAULT_SCALE_FACTOR = 100
+_SCALE_FACTOR_CURRENCY_DICT = {
+    "EUR": 100,
+    "BTC": 100000000,
+    "ETH": 100000000,
+    "BCH": 100000000,
+    "XRP": 100000000,
+    "LTC": 100000000,
+}
+
+
+class Account:
 
     def __init__(self, currency, revolut_amount=None, realAmount=None):
         if currency not in _AVAILABLE_CURRENCIES:
             raise KeyError(currency)
         self.currency = currency
 
-class Transaction:
-    def __init__(self, from, to, date):
 
-        if type(from) != Amount:
+class Transaction:
+    def __init__(self, from_amount, to_amount, date):
+
+        if type(from_amount) != Amount:
             raise TypeError
-        if type(to) != Amount:
+        if type(to_amount) != Amount:
             raise TypeError
         if type(date) != datetime:
             raise TypeError
 
-        self.from = from
-        self.to = to
+        self.from_amount = from_amount
+        self.to_amount = to_amount
         self.date = date
 
         def __str__(self):
             return ('({}) {} => {}'.format(self.date.strftime("%d/%m/%Y %H:%M:%S"),
                                            self.from_amount,
                                            self.to_amount))
+
 
 class Amount:
 
@@ -54,12 +69,24 @@ class Amount:
             raise KeyError(currency)
         self.currency = currency
 
-    if revolut_amount is not None:
-        if type(revolut_amount) != int:
-            raise TypeError
+        if revolut_amount is not None:
+            if type(revolut_amount) != int:
+                raise TypeError
 
-    elif real_amount is not None:
-        if type(revolut_amount) != int:
-            raise TypeError
+        elif real_amount is not None:
+            if type(real_amount) != int:
+                raise TypeError
+        else:
+            raise ValueError("amounts need be set")
 
+    def get_real_amount(self):
 
+        scale = _SCALE_FACTOR_CURRENCY_DICT.get(
+            self.currency, _DEFAULT_SCALE_FACTOR)
+        return float(self.revolut_amount / scale)
+
+    def get_revolut_amount(self):
+
+        scale = _SCALE_FACTOR_CURRENCY_DICT.get(
+            self.currency, _DEFAULT_SCALE_FACTOR)
+        return int(self.real_amount * scale)
