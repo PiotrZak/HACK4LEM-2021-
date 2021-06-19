@@ -1,14 +1,13 @@
 import factory
 from faker import Factory
-
-from app_dir.revolut_integration_models import CreateOrder
+from ..core.loading import get_model
 
 faker = Factory.create()
 
 
 class OrderFactory(factory.DjangoModelFactory):
     class Meta:
-        model = CreateOrder
+        model = get_model('revolut_integration', 'CreateOrder');
 
         amount = faker.amount()
         capture_mode = faker.capture_mode()

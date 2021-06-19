@@ -1,4 +1,4 @@
-from app_dir.revolut_integration import get_token_step1, get_token_step2
+from app_dir.revolut_integration.auth import get_token_1, get_token_2
 import pytest
 import os
 
@@ -18,7 +18,7 @@ else:
 
 def test_get_token(capsys):
     _DEVICE_ID_TEST = "cli"
-    get_token_step1(device_id=_DEVICE_ID_TEST,
+    get_token_1(device_id=_DEVICE_ID_TEST,
                     phone=_PHONE,
                     password=_PASSWORD,
                     simulate=_SIMU_GET_TOKEN)

@@ -2,6 +2,7 @@ from django.db import models
 
 
 class RevolutTransaction(models.Model):
+    transactionId = models.IntegerField(primary_key=True)
     senderMail = models.CharField(max_length=30)
     recipientMail = models.CharField(max_length=30)
     amount = models.IntegerField()
@@ -29,3 +30,7 @@ class CreateOrder(models.Model):
     merchant_order_ext_ref = models.CharField(max_length=30)
     email = models.CharField(max_length=30)
     currency = models.CharField(max_length=30)
+
+
+class ConfirmOrder(models.Model):
+    payment_method_id = models.IntegerField()

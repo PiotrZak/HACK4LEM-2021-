@@ -41,7 +41,6 @@ class Client:
         return ret
 
 def get_token_1(device_id, phone, password, simulate=False):
-
     if simulate:
         return "SMS"
 
@@ -50,6 +49,7 @@ def get_token_1(device_id, phone, password, simulate=False):
     ret = c._post(_URL_GET_TOKEN_STEP1, json=data)
     channel = ret.json().get("channel")
     return channel
+
 
 def get_token_2(device_id, phone, code, simulate=False):
     """ Function to obtain a Revolut token (step 2 : with code) """
@@ -76,14 +76,15 @@ def get_token_2(device_id, phone, code, simulate=False):
         raw_get_token = ret.json()
     return raw_get_token
 
-def extract_token(json_response):
 
+def extract_token(json_response):
     user_id = json_response["user"]["id"]
     access_token = json_response["accessToken"]
     token_to_encode = "{}:{}".format(user_id, access_token).encode("ascii")
     # Ascii encoding required by b64encode function : 8 bits char as input
     token = base64.b64encode(token_to_encode)
     return token.decode("ascii")
+
 
 def signin_biometric(device_id, phone, access_token, selfie_filepath):
     files = {"selfie": open(selfie_filepath, "rb")}

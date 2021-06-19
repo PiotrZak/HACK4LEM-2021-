@@ -6,7 +6,7 @@ from rest_framework.permissions import (IsAuthenticatedOrReadOnly, IsAuthenticat
 from .serializers import RevolutSerializer
 
 from app_dir.core.pagination import PostLimitOffsetPagination
-from app_dir.revolut_integration.models import RevolutAccount, CreateOrder, RevolutAccountBalance, RevolutTransaction
+from app_dir.revolut_integration.models import RevolutAccount, CreateOrder, ConfirmOrder, RevolutAccountBalance, RevolutTransaction
 
 permission_classes = [IsAuthenticatedOrReadOnly]
 serializer_class = RevolutSerializer
@@ -30,6 +30,7 @@ class RevolutListAPIView(ListAPIView):
         return queryset_list.order_by('-id')
 
 
+# Accounts
 class RevolutAccounts(ListAPIView):
     serializer_class = RevolutSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -41,19 +42,29 @@ class RevolutSpecificAccount(ListAPIView):
     serializer_class = RevolutSerializer
 
 
+# Balance
 class RevolutBalanceOnAccount(ListAPIView):
     queryset = RevolutAccountBalance.objects.all()
     permission_classes = [IsAuthenticated]
     serializer_class = RevolutSerializer
 
 
+# Transaction
 class RevolutSendTransaction(CreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = RevolutTransaction.objects.all()
     serializer_class = RevolutSerializer
 
 
+# Orders
+
 class RevolutCreateOrder(CreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = CreateOrder.objects.all()
+    serializer_class = RevolutSerializer
+
+
+class RevolutConfirmOrder(CreateAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = ConfirmOrder.objects.all()
     serializer_class = RevolutSerializer
