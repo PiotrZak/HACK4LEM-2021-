@@ -1,7 +1,5 @@
-
 from datetime import datetime
-
-from urllib.parse import urljoin
+from auth import Client
 
 API_BASE = "https://api.revolut.com"
 _URL_GET_ACCOUNTS = API_BASE + "/user/current/wallet"
@@ -34,12 +32,71 @@ _SCALE_FACTOR_CURRENCY_DICT = {
 }
 
 
+class Revolut:
+    def __init__(self, token, device_id):
+        self.client = Client(token=token, device_id=device_id)
+
+    def get_account_balances(self):
+        ret = self.client._get(_URL_GET_ACCOUNTS)
+        raw_accounts = ret.json();
+
+        account_balances = []
+
+        for raw_account in raw_accounts.get("pockets"):
+            account_balances.append({
+                "balance": raw_account.get("balance"),
+                "currency": raw_account.get("currency"),
+                "type": raw_account.get("type"),
+                "state": raw_account.get("state"),
+                "vault_name": raw_account.get("name", ""),
+            })
+
+        self.get_account_balances = Accounts(account_balances)
+        return self.get_account_balances;
+
+
+class Accounts:
+
+    def __init__(self, account_balances):
+        self.raw_list = account_balances
+        self.list = [
+            Account(
+                account_type=account.get("type"),
+                balance=Amount(
+                    currency=account.get("currency"),
+                    revolut_amount=account.get("balance"),
+                ),
+                state=account.get("state"),
+                vault_name=account.get("vault_name"),
+            )
+            for account in self.raw_list
+        ]
+
+
 class Account:
 
-    def __init__(self, currency, revolut_amount=None, realAmount=None):
-        if currency not in _AVAILABLE_CURRENCIES:
-            raise KeyError(currency)
-        self.currency = currency
+    def __init__(self, account_type, balance, state, vault_name):
+        self.account_type = account_type  # CURRENT, SAVINGS
+        self.balance = balance
+        self.state = state  # ACTIVE, INACTIVE
+        self.vault_name = vault_name
+        self.name = self.build_account_name()
+
+    def build_account_name(self):
+        if self.account_type == _VAULT_ACCOUNT_TYPE:
+            account_name = '{currency} {type} ({vault_name})'.format(
+                currency=self.balance.currency,
+                type=self.account_type,
+                vault_name=self.vault_name)
+        else:
+            account_name = '{currency} {type}'.format(
+                currency=self.balance.currency,
+                type=self.account_type)
+        return account_name
+
+    def __str__(self):
+        return "{name} : {balance}".format(name=self.name,
+                                           balance=str(self.balance))
 
 
 class Transaction:
