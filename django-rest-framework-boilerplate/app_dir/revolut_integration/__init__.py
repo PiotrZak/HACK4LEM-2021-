@@ -119,7 +119,6 @@ class Transaction:
                                            self.from_amount,
                                            self.to_amount))
 
-
 class Amount:
 
     def __init__(self, currency, revolut_amount=None, real_amount=None):
