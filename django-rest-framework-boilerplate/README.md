@@ -1,18 +1,6 @@
 ## django-rest-framework-boilerplate
 Simple boilerplate for django & django rest framework.
 
-[![Build Status](https://travis-ci.org/p8ul/stackoverflow-lite-client.svg?branch=develop)](https://travis-ci.org/p8ul/stackoverflow-lite-client)
-[![Coverage Status](https://coveralls.io/repos/github/p8ul/django-rest-framework-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/p8ul/django-rest-framework-boilerplate?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/e066442f75f4bc3f5269/maintainability)](https://codeclimate.com/github/p8ul/django-rest-framework-boilerplate/maintainability)
-
-### Tasks list
-- [x] Users api CRUD endpoints
-- [x] DRF JWT Authentication
-- [x] Add docker configurations
-- [ ] Document folder structure
-- [ ] Configure Static/media & templates
-- [ ] Integrate material ui & react js on templates
- 
 #### Jwt token endpoint
 Method | Endpoint | Functionanlity
 --- | --- | ---
@@ -58,7 +46,7 @@ Install dependancies
 Make migrations & migrate
 
     $ python manage.py makemigrations && python manage.py migrate
-Create Super user
+Create Super userz
     
     $ python manage.py createsuperuser
 

@@ -3,12 +3,17 @@ import base64
 import json
 
 API_BASE = "https://api.revolut.com"
+API_BASE_SANDBOX = "https://sandbox-business.revolut.com"
 
 MERCHANT_URL = "https://merchant.revolut.com/api/1.0/orders"
-_URL_GET_TOKEN_STEP1 = API_BASE + "/signin"
-_URL_GET_TOKEN_STEP2 = API_BASE + "/signin/confirm"
 
-_DEFAULT_TOKEN_FOR_SIGNIN = "sk_i0rL5l6ZjvyuiFclBUMULeOleotfEmrLEn4kgLGNuUUQ0puQNUuT1A9wmKo0jfV6"
+# todo - verify host
+# An unknown error has occurred: HTTPSConnectionPool(host='sandbox-business.revolut.comapi', port=443): Max retries exceeded with url: /1.0/signin (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7fcf50ab29b0>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))
+
+_URL_GET_TOKEN_STEP1 = API_BASE + "/signin"
+_URL_GET_TOKEN_STEP2 = API_BASE + "/api/1.0/signin/confirm"
+
+_DEFAULT_TOKEN_FOR_SIGNIN = "sk_IbM8arw0C8vt93eR1kdzs6yO1WPpVjuDGbHuq8A9BcJDD_K9lLoZ0F9nqhXLiQv1"
 
 
 class Client:
@@ -33,12 +38,15 @@ class Client:
         return ret
 
     def _post(self, url, *, expected_status_code=200, **kwargs):
-        ret = self.session.post(url=url, **kwargs)
+
+        ret = self.session.post(url=url, headers=self.session.headers, **kwargs)
+
         if ret.status_code != expected_status_code:
             raise ConnectionError(
                 'Status code {} for url {}\n{}'.format(
                     ret.status_code, url, ret.text))
         return ret
+
 
 def get_token_1(device_id, phone, password, simulate=False):
     if simulate:
@@ -46,6 +54,7 @@ def get_token_1(device_id, phone, password, simulate=False):
 
     c = Client(device_id=device_id, token=_DEFAULT_TOKEN_FOR_SIGNIN)
     data = {"phone": phone, "password": password}
+
     ret = c._post(_URL_GET_TOKEN_STEP1, json=data)
     channel = ret.json().get("channel")
     return channel

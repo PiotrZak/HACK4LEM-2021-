@@ -1,19 +1,20 @@
-import requests
-import base64
-import json
-
-from app_dir.revolut_integration import Transaction
 from app_dir.revolut_integration.auth import Client
+from tensorflow import keras
 
-API_BASE = "https://api.revolut.com"
+API_BASE_ORIGINAL = "https://api.revolut.com"
+API_BASE = "https://sandbox-business.revolut.com"
+
+
+
+SANDBOX_API_KEY = "sk_IbM8arw0C8vt93eR1kdzs6yO1WPpVjuDGbHuq8A9BcJDD_K9lLoZ0F9nqhXLiQv1"
+
 CONFIRM_ORDER = API_BASE + "/api/1.0/orders"
+VERIFICATION_PROVIDERS = ['pko', 'plus', 'vw']
 
 class ProcessOrders:
     def __init__(self, token, device_id, userBalance, amount, orderId, date, aiApproved):
 
         if type(amount) != Amount:
-            raise TypeError
-        if type(to_amount) != Amount:
             raise TypeError
         if type(date) != datetime:
             raise TypeError
@@ -23,35 +24,36 @@ class ProcessOrders:
         self.client = Client(token=token, device_id=device_id)
         self.orderId = orderId
         self.userBalance = userBalance
-        self.from_amount = from_amount
-        self.to_amount = to_amount
+        self.amount = amount
         self.date = date
         self.aiApproved = aiApproved
 
 # todo
-# integrate model - which return 100 on score
-
-# todo
 # verify how can get payment_method_id?
-    
+
     def verify_transaction(aiApproved=False, orderId, payment_method_id, userBalance, amount):
+
+        model = keras.models.load_model('../../../hack4lem.h5')
+
+        #todo - how is constructed ml model? - debug session
+
         if aiApproved:
             if userBalance > amount:
                 ret = confirm_order(orderId, payment_method_id)
-
                 order_details = ret.json();
 
         return order_details;
 
 
     def initiate_order(self, ):
+        #todo - initiate order when email appear
 
     def confirm_order(self, orderId, payment_method_id):
 
-        ret = self.client._post(CONFIRM_ORDER)
-        raw_accounts = ret.json();
+        ret = self.client._post(CONFIRM_ORDER, orderId, payment_method_id)
+        ret = ret.json();
 
-        account_balances = []
+        return ret;
 
 
 

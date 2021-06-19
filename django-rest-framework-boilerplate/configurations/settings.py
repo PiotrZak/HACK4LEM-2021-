@@ -49,7 +49,7 @@ LOCAL_APPS = (
     'app_dir.revolut_integration'
 )
 
-INSTALLED_APPS = DEFAULT_APPS + EXTERNAL_APPS + LOCAL_APPS
+INSTALLED_APPS = DEFAULT_APPS + EXTERNAL_APPS + LOCAL_APPS;
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
