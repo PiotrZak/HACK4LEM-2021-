@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from django.db import models
 
-
 class RevolutSerializer(serializers.ModelSerializer):
 
     def createOrder(self, validated_data):
@@ -19,11 +18,3 @@ class RevolutSerializer(serializers.ModelSerializer):
             currency=currency,
         )
         return validated_data
-
-
-class CreateOrder(models.Model):
-    amount = models.IntegerField(max_length=30)
-    capture_mode = models.CharField(max_length=30)
-    merchant_order_ext_ref = models.CharField(max_length=30)
-    email = models.CharField(max_length=30)
-    currency = models.CharField(max_length=30)
