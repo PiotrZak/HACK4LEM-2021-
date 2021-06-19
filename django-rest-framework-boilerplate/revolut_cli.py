@@ -73,7 +73,7 @@ def get_token(device_id):
         "account) [ex : +33612345678] ? ")
     password = getpass(
         "What is your Revolut app password [ex: 1234] ? ")
-    verification_channel = get_token_step1(
+    verification_channel = get_token_1(
         device_id=device_id,
         phone=phone,
         password=password
@@ -90,7 +90,7 @@ def get_token(device_id):
         "[ex : 123456] : ".format(verification_channel)
     )
 
-    response = get_token_step2(
+    response = get_token_2(
         device_id=device_id,
         phone=phone,
         code=code,
