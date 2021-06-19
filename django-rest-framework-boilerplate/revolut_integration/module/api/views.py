@@ -2,8 +2,6 @@ from rest_framework.generics import (
     ListAPIView, CreateAPIView, RetrieveUpdateAPIView,
     RetrieveAPIView, DestroyAPIView
 )
-from django.db.models import Q
-from rest_framework import pagination
 from rest_framework.permissions import (IsAuthenticatedOrReadOnly, IsAuthenticated)
 from .serializers import RevolutSerializer
 from ....models import RevolutAccount, CreateOrder, RevolutAccountBalance
@@ -32,4 +30,6 @@ class RevolutSendTransaction(RetrieveUpdateAPIView):
     serializer_class = RevolutSerializer
 
 class RevolutCreateOrder(CreateAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset =
 

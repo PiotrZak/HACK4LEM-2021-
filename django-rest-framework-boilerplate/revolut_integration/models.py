@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Transaction(models.Model):
+class RevolutTransaction(models.Model):
     senderMail = models.CharField(max_length=30)
     recipientMail = models.CharField(max_length=30)
     amount = models.IntegerField(max_length=30)

@@ -1,47 +1,29 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
-
+from django.db import models
 
 
 class RevolutSerializer(serializers.ModelSerializer):
 
-
-
-    class Meta:
-        model = CreateOrder
-        fields = [
-            'amount',
-            'capture_mode',
-            'merchant_order_ext_ref',
-            'email',
-            'currency',
-        ]
-
-        model =
-
-
-
-
-
-
-
-
-    def create(self, validated_data):
-        username = validated_data['username']
+    def createOrder(self, validated_data):
+        username = validated_data['amount']
+        capture_mode = validated_data['capture_mode']
+        merchant_order_ext_ref = validated_data['merchant_order_ext_ref']
         email = validated_data['email']
-        password = validated_data['password']
-        user_obj = User(
+        currency = validated_data['currency']
+
+        order_obj = CreateOrder(
             username=username,
+            capture_mode=capture_mode,
+            merchant_order_ext_ref=merchant_order_ext_ref,
             email=email,
-            is_staff=True
+            currency=currency,
         )
-        user_obj.set_password(password)
-        user_obj.save()
         return validated_data
 
-    def update(self, instance, validated_data):
-        instance.username = validated_data.get('username', instance.username)
-        instance.email = validated_data.get('email', instance.email)
-        instance.save()
 
-        return instance
+class CreateOrder(models.Model):
+    amount = models.IntegerField(max_length=30)
+    capture_mode = models.CharField(max_length=30)
+    merchant_order_ext_ref = models.CharField(max_length=30)
+    email = models.CharField(max_length=30)
+    currency = models.CharField(max_length=30)
