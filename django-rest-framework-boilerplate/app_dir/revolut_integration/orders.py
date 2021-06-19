@@ -44,6 +44,9 @@ class ProcessOrders:
 
         return order_details;
 
+    def createOrder(self):
+        ret = self.client._post(CREATE_ORDER, )
+        ret = ret.json();
 
     def initiate_order(self, ):
         #todo - initiate order when email appear

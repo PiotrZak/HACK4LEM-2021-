@@ -59,6 +59,8 @@ class RevolutSendTransaction(CreateAPIView):
 # Orders
 
 class RevolutCreateOrder(CreateAPIView):
+
+
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = CreateOrder.objects.all()
     serializer_class = RevolutSerializer
