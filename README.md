@@ -52,6 +52,10 @@ accounts:
 ____
 
 ### Backend Server
+WebUI Golem4 Admin: http://20.56.153.238:8000/user/login?redirect=%2F
+
+![Admin flow](./assets/golem4-admin-login.png)
+![User flow](./assets/golem4-admin.png)
 
 ```
 su:
