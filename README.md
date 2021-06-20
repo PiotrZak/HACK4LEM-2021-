@@ -3,6 +3,9 @@
 ## GOLEM IV - Invisible Banking
 
 
+### About
+- [Presentation](./assets/GOLEM_IV_Invisible_Banking.pdf)
+
 ### Ideas
 
 - [Ideation - Creative Process](https://miro.com/app/board/o9J_l-FEkGQ=/)
@@ -64,6 +67,12 @@ p: Hack4Lem2021
 
 connect: ssh astrogator@20.56.153.238
 ```
+
+____
+
+### IVR
+
+[Build an IVR with Twilio Studio](https://www.twilio.com/docs/studio/tutorials/how-to-build-an-ivr)
 
 ____
 
